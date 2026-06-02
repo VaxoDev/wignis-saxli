@@ -1,0 +1,1878 @@
+<!DOCTYPE html>
+<html lang="ka">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>წიგნის სახლი "ვარკეთილი"</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --cream: #F7F3EC;
+            --ink: #1A1410;
+            --ink-soft: #3D342A;
+            --ink-muted: #7A6E62;
+            --amber: #C8873A;
+            --amber-light: #E8B068;
+            --amber-pale: #F5E4CE;
+            --forest: #2D4A38;
+            --white: #FDFAF6;
+            --border: rgba(26, 20, 16, 0.12);
+            --border-strong: rgba(26, 20, 16, 0.22);
+            --shadow: 0 4px 24px rgba(26, 20, 16, 0.08);
+            --r: 10px;
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --font-sans: 'DM Sans', system-ui, sans-serif;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--cream);
+            color: var(--ink);
+            line-height: 1.6;
+            overflow-x: hidden
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(247, 243, 236, 0.96);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 clamp(1rem, 4vw, 3.5rem)
+        }
+
+        .nav-logo {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--ink);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+            flex-shrink: 0
+        }
+
+        .nav-logo span {
+            color: var(--amber);
+            font-style: italic
+        }
+
+        .nav-center {
+            display: flex;
+            gap: 0.25rem;
+            align-items: center
+        }
+
+        .nav-center a {
+            text-decoration: none;
+            color: var(--ink-soft);
+            font-size: 0.88rem;
+            font-weight: 500;
+            padding: 0.45rem 0.9rem;
+            border-radius: 2rem;
+            transition: all 0.18s
+        }
+
+        .nav-center a:hover {
+            background: var(--amber-pale);
+            color: var(--amber)
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem
+        }
+
+        .nav-lang {
+            display: flex;
+            background: var(--cream);
+            border: 1px solid var(--border-strong);
+            border-radius: 2rem;
+            overflow: hidden
+        }
+
+        .nav-lang button {
+            background: none;
+            border: none;
+            padding: 0.3rem 0.65rem;
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--ink-muted);
+            transition: all 0.18s
+        }
+
+        .nav-lang button.active {
+            background: var(--ink);
+            color: var(--cream)
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding-top: 64px;
+            overflow: hidden
+        }
+
+        .hero-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem clamp(1.5rem, 4vw, 4rem) 4rem clamp(1.5rem, 5vw, 5rem)
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            border: 1px solid var(--amber-light);
+            background: var(--amber-pale);
+            color: var(--amber);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            width: fit-content;
+            margin-bottom: 1.75rem
+        }
+
+        .hero-badge .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: currentColor;
+            flex-shrink: 0
+        }
+
+        .dot-open {
+            animation: pulse 2s infinite
+        }
+
+        .dot-closed {
+            opacity: 0.4
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1)
+            }
+
+            50% {
+                opacity: 0.4;
+                transform: scale(0.75)
+            }
+        }
+
+        .badge-open {
+            background: var(--amber-pale);
+            color: var(--amber);
+            border-color: var(--amber-light)
+        }
+
+        .badge-closed {
+            background: #F5EDED;
+            color: #8B3A3A;
+            border-color: #D4A0A0
+        }
+
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2.6rem, 4.5vw, 4rem);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.25rem
+        }
+
+        .hero-title em {
+            font-style: italic;
+            color: var(--amber)
+        }
+
+        .hero-desc {
+            font-size: 1rem;
+            color: var(--ink-muted);
+            max-width: 420px;
+            line-height: 1.75;
+            margin-bottom: 2.25rem
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            align-items: center
+        }
+
+        .btn-primary {
+            background: var(--ink);
+            color: var(--cream);
+            padding: 0.8rem 1.75rem;
+            border-radius: 2rem;
+            font-family: var(--font-sans);
+            font-size: 0.92rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.22s;
+            border: 2px solid var(--ink);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer
+        }
+
+        .btn-primary:hover {
+            background: var(--amber);
+            border-color: var(--amber);
+            color: var(--ink)
+        }
+
+        .btn-secondary {
+            padding: 0.8rem 1.75rem;
+            border-radius: 2rem;
+            font-family: var(--font-sans);
+            font-size: 0.92rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.22s;
+            border: 2px solid var(--border-strong);
+            color: var(--ink);
+            background: transparent;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--amber);
+            color: var(--amber)
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            flex-wrap: wrap
+        }
+
+        .stat-num {
+            font-family: var(--font-serif);
+            font-size: 1.7rem;
+            font-weight: 700;
+            line-height: 1
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--ink-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 4px
+        }
+
+        .stat-stars {
+            color: var(--amber);
+            font-size: 0.85rem;
+            margin-top: 2px;
+            letter-spacing: 1px
+        }
+
+        /* HERO RIGHT */
+        .hero-right {
+            background: var(--forest);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 3rem 2rem
+        }
+
+        .hero-right::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23FDFAF6' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E")
+        }
+
+        .hero-bookshelf {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+            align-items: center;
+            max-width: 420px;
+            width: 100%
+        }
+
+        .shelf-row {
+            display: flex;
+            gap: 7px;
+            justify-content: center;
+            align-items: flex-end
+        }
+
+        .book-spine {
+            border-radius: 3px 6px 6px 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.25s, box-shadow 0.25s;
+            overflow: hidden;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4)
+        }
+
+        .book-spine:hover {
+            transform: translateY(-8px) scale(1.06);
+            box-shadow: 4px 14px 22px rgba(0, 0, 0, 0.5)
+        }
+
+        .book-spine span {
+            font-family: var(--font-serif);
+            font-size: 0.5rem;
+            font-weight: 600;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            color: rgba(255, 255, 255, 0.88);
+            letter-spacing: 0.05em;
+            padding: 0 3px;
+            overflow: hidden;
+            max-height: 90%
+        }
+
+        .shelf-line {
+            width: 100%;
+            height: 7px;
+            background: linear-gradient(180deg, #5C3D1E, #3A2410);
+            border-radius: 2px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4)
+        }
+
+        /* SECTION */
+        .section {
+            padding: 5rem clamp(1.5rem, 5vw, 5rem)
+        }
+
+        .section-alt {
+            background: var(--white)
+        }
+
+        .section-eyebrow {
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--amber);
+            margin-bottom: 0.5rem
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: clamp(1.7rem, 2.8vw, 2.4rem);
+            font-weight: 700;
+            color: var(--ink);
+            line-height: 1.2;
+            letter-spacing: -0.02em
+        }
+
+        .section-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 2.5rem;
+            gap: 1rem;
+            flex-wrap: wrap
+        }
+
+        /* SHEET LINK */
+        .sheet-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.82rem;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border: 1px solid var(--border-strong);
+            padding: 0.4rem 0.9rem;
+            border-radius: 2rem;
+            transition: all 0.18s;
+            white-space: nowrap
+        }
+
+        .sheet-link:hover {
+            color: var(--amber);
+            border-color: var(--amber)
+        }
+
+        .sheet-link svg {
+            width: 14px;
+            height: 14px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex-shrink: 0
+        }
+
+        /* CONTROLS */
+        .catalog-controls {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            align-items: center
+        }
+
+        .search-wrap {
+            flex: 1;
+            min-width: 200px;
+            max-width: 360px;
+            position: relative
+        }
+
+        .search-wrap svg {
+            position: absolute;
+            left: 13px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            stroke: var(--ink-muted);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            pointer-events: none
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.7rem 1rem 0.7rem 2.5rem;
+            border: 1.5px solid var(--border-strong);
+            border-radius: 2rem;
+            font-family: var(--font-sans);
+            font-size: 0.88rem;
+            background: var(--white);
+            color: var(--ink);
+            outline: none;
+            transition: border-color 0.18s
+        }
+
+        .search-input:focus {
+            border-color: var(--amber)
+        }
+
+        .search-input::placeholder {
+            color: var(--ink-muted)
+        }
+
+        .filter-select {
+            padding: 0.7rem 2.2rem 0.7rem 1rem;
+            border: 1.5px solid var(--border-strong);
+            border-radius: 2rem;
+            font-family: var(--font-sans);
+            font-size: 0.88rem;
+            background: var(--white);
+            color: var(--ink);
+            outline: none;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237A6E62' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.9rem center;
+            min-width: 150px;
+            transition: border-color 0.18s
+        }
+
+        .filter-select:focus {
+            border-color: var(--amber)
+        }
+
+        .results-count {
+            font-size: 0.82rem;
+            color: var(--ink-muted);
+            margin-left: auto;
+            white-space: nowrap
+        }
+
+        /* BOOK GRID */
+        #books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem
+        }
+
+        .book-card {
+            background: var(--white);
+            border-radius: var(--r);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: transform 0.22s, box-shadow 0.22s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow)
+        }
+
+        .book-cover {
+            aspect-ratio: 3/4;
+            position: relative;
+            overflow: hidden
+        }
+
+        .book-cover-inner {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.25rem 0.9rem;
+            text-align: center;
+            position: relative
+        }
+
+        .book-cover-inner::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background: rgba(0, 0, 0, 0.15)
+        }
+
+        .cover-title {
+            font-family: var(--font-serif);
+            font-size: clamp(0.75rem, 1.8vw, 0.95rem);
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.25;
+            margin-bottom: 0.4rem;
+            word-break: break-word
+        }
+
+        .cover-author {
+            font-size: 0.68rem;
+            color: rgba(255, 255, 255, 0.68)
+        }
+
+        .cover-icon {
+            font-size: 1.6rem;
+            margin-bottom: 0.6rem;
+            opacity: 0.55
+        }
+
+        .book-info {
+            padding: 0.9rem 1rem 1rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem
+        }
+
+        .book-title {
+            font-family: var(--font-serif);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--ink);
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden
+        }
+
+        .book-author {
+            font-size: 0.76rem;
+            color: var(--ink-muted)
+        }
+
+        .book-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+            padding-top: 0.65rem;
+            border-top: 1px solid var(--border);
+            gap: 0.4rem;
+            flex-wrap: wrap
+        }
+
+        .book-price {
+            font-family: var(--font-serif);
+            font-size: 1.05rem;
+            font-weight: 700
+        }
+
+        .book-genre {
+            font-size: 0.68rem;
+            font-weight: 500;
+            background: var(--amber-pale);
+            color: var(--amber);
+            padding: 0.2rem 0.55rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(200, 135, 58, 0.2)
+        }
+
+        .book-status {
+            font-size: 0.68rem;
+            font-weight: 600;
+            padding: 0.2rem 0.55rem;
+            border-radius: 2rem
+        }
+
+        .status-available {
+            background: #E8F5E9;
+            color: #2E7D32;
+            border: 1px solid rgba(46, 125, 50, 0.2)
+        }
+
+        .status-sold {
+            background: #FFEBEE;
+            color: #B71C1C;
+            border: 1px solid rgba(183, 28, 28, 0.2)
+        }
+
+        .status-new {
+            background: #E8F0FE;
+            color: #1A56B0;
+            border: 1px solid rgba(26, 86, 176, 0.2)
+        }
+
+        /* SHOW MORE */
+        .show-more-wrap {
+            text-align: center;
+            margin-top: 2.5rem
+        }
+
+        .btn-show-more {
+            background: transparent;
+            border: 2px solid var(--border-strong);
+            color: var(--ink);
+            padding: 0.8rem 2.5rem;
+            border-radius: 2rem;
+            font-family: var(--font-sans);
+            font-size: 0.92rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.22s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .btn-show-more:hover {
+            border-color: var(--amber);
+            color: var(--amber)
+        }
+
+        .btn-show-more[hidden] {
+            display: none
+        }
+
+        /* LOADING / EMPTY */
+        .loading-state {
+            grid-column: 1/-1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 5rem 2rem;
+            gap: 1rem;
+            color: var(--ink-muted)
+        }
+
+        .spinner {
+            width: 34px;
+            height: 34px;
+            border: 3px solid var(--border);
+            border-top-color: var(--amber);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        .empty-state {
+            grid-column: 1/-1;
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--ink-muted);
+            font-size: 0.92rem
+        }
+
+        /* CATEGORIES */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 0.85rem
+        }
+
+        .category-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--r);
+            padding: 1.25rem 0.9rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.18s;
+            text-decoration: none;
+            display: block
+        }
+
+        .category-card:hover {
+            border-color: var(--amber);
+            background: var(--amber-pale);
+            transform: translateY(-3px)
+        }
+
+        .category-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.4rem
+        }
+
+        .category-name {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--ink)
+        }
+
+        .category-count {
+            font-size: 0.72rem;
+            color: var(--ink-muted);
+            margin-top: 3px
+        }
+
+        /* MAP */
+        .map-section {
+            background: var(--ink);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 500px
+        }
+
+        .map-info {
+            padding: 5rem clamp(1.5rem, 5vw, 4rem);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: var(--white)
+        }
+
+        .map-eyebrow {
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--amber);
+            margin-bottom: 0.65rem
+        }
+
+        .map-title {
+            font-family: var(--font-serif);
+            font-size: clamp(1.8rem, 3vw, 2.3rem);
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem
+        }
+
+        .map-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+            margin-bottom: 1rem;
+            color: rgba(253, 250, 246, 0.72);
+            font-size: 0.9rem
+        }
+
+        .map-detail svg {
+            flex-shrink: 0;
+            margin-top: 2px;
+            width: 18px;
+            height: 18px;
+            stroke: var(--amber);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round
+        }
+
+        .map-detail strong {
+            color: var(--white);
+            display: block;
+            font-weight: 500
+        }
+
+        .map-social {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.75rem;
+            align-items: center
+        }
+
+        .map-social a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(253, 250, 246, 0.2);
+            color: rgba(253, 250, 246, 0.7);
+            transition: all 0.18s
+        }
+
+        .map-social a:hover {
+            border-color: var(--amber);
+            color: var(--amber);
+            background: rgba(200, 135, 58, 0.1)
+        }
+
+        .map-embed {
+            position: relative;
+            overflow: hidden
+        }
+
+        .map-embed iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            filter: saturate(0.7) contrast(1.1)
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--ink);
+            color: rgba(253, 250, 246, 0.6);
+            padding: 3.5rem clamp(1.5rem, 5vw, 5rem) 2rem
+        }
+
+        .footer-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap
+        }
+
+        .footer-logo {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--white);
+            display: block;
+            margin-bottom: 0.6rem
+        }
+
+        .footer-logo span {
+            color: var(--amber);
+            font-style: italic
+        }
+
+        .footer-tagline {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            max-width: 250px
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 0.65rem;
+            margin-top: 1rem
+        }
+
+        .footer-social a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(253, 250, 246, 0.18);
+            color: rgba(253, 250, 246, 0.6);
+            transition: all 0.18s
+        }
+
+        .footer-social a:hover {
+            border-color: var(--amber);
+            color: var(--amber)
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(253, 250, 246, 0.1);
+            padding-top: 1.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            font-size: 0.8rem
+        }
+
+        /* MODAL */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: rgba(26, 20, 16, 0.72);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.22s
+        }
+
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: all
+        }
+
+        .modal {
+            background: var(--white);
+            border-radius: 16px;
+            max-width: 640px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            transform: scale(0.95) translateY(12px);
+            transition: transform 0.22s;
+            position: relative
+        }
+
+        .modal-overlay.open .modal {
+            transform: scale(1) translateY(0)
+        }
+
+        .modal-cover {
+            border-radius: 16px 0 0 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 2rem 1.25rem;
+            text-align: center;
+            min-height: 340px
+        }
+
+        .modal-body {
+            padding: 2rem 1.75rem
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 0.9rem;
+            right: 0.9rem;
+            background: rgba(26, 20, 16, 0.08);
+            border: none;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.18s
+        }
+
+        .modal-close:hover {
+            background: rgba(26, 20, 16, 0.16)
+        }
+
+        .modal-title {
+            font-family: var(--font-serif);
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            line-height: 1.2
+        }
+
+        .modal-author {
+            color: var(--ink-muted);
+            font-size: 0.86rem;
+            margin-bottom: 1.25rem
+        }
+
+        .modal-price {
+            font-family: var(--font-serif);
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--amber);
+            margin-bottom: 1.25rem
+        }
+
+        .modal-row {
+            display: flex;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem
+        }
+
+        .modal-field {
+            flex: 1;
+            min-width: 100px
+        }
+
+        .modal-field label {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--ink-muted);
+            display: block;
+            margin-bottom: 3px
+        }
+
+        .modal-field span {
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--ink)
+        }
+
+        /* FADE IN */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity 0.6s ease, transform 0.6s ease
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:860px) {
+            .hero {
+                grid-template-columns: 1fr
+            }
+
+            .hero-right {
+                min-height: 280px
+            }
+
+            .hero-left {
+                padding: 3rem 1.5rem
+            }
+
+            .map-section {
+                grid-template-columns: 1fr
+            }
+
+            .map-embed {
+                min-height: 300px
+            }
+
+            .map-info {
+                padding: 3rem 1.5rem
+            }
+
+            .modal {
+                grid-template-columns: 1fr
+            }
+
+            .modal-cover {
+                border-radius: 16px 16px 0 0;
+                min-height: 180px
+            }
+        }
+
+        @media(max-width:560px) {
+            .hero-stats {
+                flex-direction: column;
+                gap: 1rem
+            }
+
+            .catalog-controls {
+                flex-direction: column;
+                align-items: stretch
+            }
+
+            .search-wrap {
+                max-width: 100%
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start
+            }
+
+            .footer-top {
+                flex-direction: column
+            }
+        }
+        /* VAKHO CREDIT TOOLTIP */
+        .vakho-credit {
+            position: relative;
+            cursor: default;
+            display: inline-flex;
+            align-items: center;
+            gap: 0
+        }
+
+        .vakho-tooltip {
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%) translateY(4px);
+            background: var(--amber);
+            color: var(--ink);
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 0.3rem 0.7rem;
+            border-radius: 6px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.18s, transform 0.18s
+        }
+
+        .vakho-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: var(--amber)
+        }
+
+        .vakho-credit:hover .vakho-tooltip {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0)
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <a href="#" class="nav-logo" data-ka="წიგნის სახლი 'ვარკეთილი'" data-en="Book house 'Varketili'">წიგნის სახლი</a>
+        <div class="nav-center">
+            <a href="#" data-ka="მთავარი" data-en="Home">მთავარი</a>
+            <a href="#catalog" data-ka="კატალოგი" data-en="Catalog">კატალოგი</a>
+            <a href="#contact" data-ka="კონტაქტი" data-en="Contact">კონტაქტი</a>
+        </div>
+        <div class="nav-right">
+            <div class="nav-lang">
+                <button onclick="setLang('ka')" id="lang-ka" class="active">ქარ</button>
+                <button onclick="setLang('en')" id="lang-en">ENG</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="hero-left">
+            <div class="hero-badge badge-open" id="status-badge">
+                <span class="dot dot-open" id="status-dot"></span>
+                <span id="status-text">იტვირთება...</span>
+            </div>
+            <h1 class="hero-title">
+                <span data-ka="ყოველი დიდი<br>ამბავი იწყება<br><em>სწორი წიგნით</em>"
+                    data-en="Every great story<br>begins with<br><em>the right book</em>">ყოველი დიდი<br>ამბავი
+                    იწყება<br><em>სწორი წიგნით</em></span>
+            </h1>
+            <p class="hero-desc"
+                data-ka="თქვენი ინგლისურენოვანი წიგნების მაღაზია. ყველა ჟანრის გულდასმით შერჩეული სათაურები — კლასიკიდან დღევანდელ ბესტსელერებამდე."
+                data-en="Your bookstore. Thoughtfully curated titles across every genre — from timeless classics to today's most talked-about reads.">
+                თქვენი ინგლისურენოვანი წიგნების მაღაზია. ყველა ჟანრის გულდასმით შერჩეული სათაურები — კლასიკიდან დღევანდელ
+                ბესტსელერებამდე.
+            </p>
+            <div class="hero-actions">
+                <a href="#catalog" class="btn-primary" data-ka="კატალოგის ნახვა →" data-en="Browse Catalog →">კატალოგის
+                    ნახვა →</a>
+                <a href="#contact" class="btn-secondary" data-ka="მაღაზიის პოვნა" data-en="Find the Store">მაღაზიის
+                    პოვნა</a>
+            </div>
+            <div class="hero-stats">
+                <div>
+                    <div class="stat-num" id="stat-books">—</div>
+                    <div class="stat-label" data-ka="წიგნი მარაგში" data-en="Books in stock">წიგნი მარაგში</div>
+                </div>
+                <div>
+                    <div class="stat-num" id="stat-genres">—</div>
+                    <div class="stat-label" data-ka="ჟანრი" data-en="Genres">ჟანრი</div>
+                </div>
+                <div>
+                    <div class="stat-num">★ 4.6</div>
+                    <div class="stat-label" data-ka="Google-ის რეიტინგი" data-en="Google Rating">Google-ის რეიტინგი
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-right">
+            <div class="hero-bookshelf">
+                <div class="shelf-row" id="shelf-row-1"></div>
+                <div class="shelf-line"></div>
+                <div class="shelf-row" id="shelf-row-2"></div>
+                <div class="shelf-line"></div>
+                <div class="shelf-row" id="shelf-row-3"></div>
+                <div class="shelf-line"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GENRES -->
+    <section class="section section-alt fade-in" id="genres">
+        <div class="section-header">
+            <div>
+                <div class="section-eyebrow" data-ka="კატეგორიით ძიება" data-en="Browse by category">კატეგორიით ძიება
+                </div>
+                <h2 class="section-title" data-ka="ყველა ჟანრი" data-en="Explore every genre">ყველა ჟანრი</h2>
+            </div>
+        </div>
+        <div class="categories-grid" id="categories-grid">
+            <div style="grid-column:1/-1;text-align:center;padding:2rem">
+                <div class="spinner" style="margin:0 auto"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATALOG -->
+    <section class="section fade-in" id="catalog">
+        <div class="section-header">
+            <div>
+                <div class="section-eyebrow" data-ka="ჩვენი კოლექცია" data-en="Our collection">ჩვენი კოლექცია</div>
+                <h2 class="section-title" data-ka="სრული კატალოგი" data-en="Full catalog">სრული კატალოგი</h2>
+            </div>
+            <a href="https://docs.google.com/spreadsheets/d/1nZuSP0g82uJAHVi-qTM26M242Oz8Xe001jtAQ7aXszU/edit?gid=0"
+                target="_blank" class="sheet-link">
+                <svg viewBox="0 0 24 24">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                    <polyline points="10 9 9 9 8 9" />
+                </svg>
+                <span data-ka="ცხრილის ნახვა" data-en="View spreadsheet">ცხრილის ნახვა</span>
+            </a>
+        </div>
+        <div class="catalog-controls">
+            <div class="search-wrap">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="8" />
+                    <path d="m21 21-4.35-4.35" />
+                </svg>
+                <input type="text" class="search-input" id="search-input" placeholder="სათაური ან ავტორი…">
+            </div>
+            <select class="filter-select" id="genre-filter">
+                <option value="" data-ka="ყველა ჟანრი" data-en="All genres">ყველა ჟანრი</option>
+            </select>
+            <select class="filter-select" id="sort-select">
+                <option value="shuffle" data-ka="შერეული" data-en="Shuffled">შერეული</option>
+                <option value="price-asc" data-ka="ფასი: იაფიდან" data-en="Price: Low to High">ფასი: იაფიდან</option>
+                <option value="price-desc" data-ka="ფასი: ძვირიდან" data-en="Price: High to Low">ფასი: ძვირიდან</option>
+                <option value="title-asc" data-ka="სათაური: ა–ჰ" data-en="Title: A–Z">სათაური: ა–ჰ</option>
+            </select>
+            <div class="results-count" id="results-count"></div>
+        </div>
+        <div id="books-grid">
+            <div class="loading-state">
+                <div class="spinner"></div>
+                <p data-ka="იტვირთება კატალოგი..." data-en="Loading catalog...">იტვირთება კატალოგი...</p>
+            </div>
+        </div>
+        <div class="show-more-wrap">
+            <button class="btn-show-more" id="show-more-btn" hidden>
+                <span data-ka="მეტის ნახვა" data-en="Show more">მეტის ნახვა</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 15" />
+                </svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- CONTACT / MAP -->
+    <div class="map-section fade-in" id="contact">
+        <div class="map-info">
+            <div class="map-eyebrow" data-ka="მოგვინახულეთ" data-en="Come see us">მოგვინახულეთ</div>
+            <h2 class="map-title" data-ka="წიგნის სახლი<br>ვარკეთილი" data-en="Book Store<br>Varketili">წიგნის
+                სახლი<br>ვარკეთილი</h2>
+
+            <div class="map-detail">
+                <svg viewBox="0 0 24 24">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                    <circle cx="12" cy="10" r="3" />
+                </svg>
+                <div>
+                    <strong data-ka="მისამართი" data-en="Address">მისამართი</strong>
+                    <span data-ka="ჯავახეთის ორი, თბილისი" data-en="2 Javakheti St, Tbilisi">ჯავახეთის ორი, თბილისი</span>
+                </div>
+            </div>
+
+            <div class="map-detail">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                </svg>
+                <div>
+                    <strong data-ka="სამუშაო საათები" data-en="Opening hours">სამუშაო საათები</strong>
+                    <span data-ka="ორშ–შაბ: 9:00–20:00<br>კვირა: 9:00–19:00"
+                        data-en="Mon–Sat: 9:00–20:00<br>Sun: 9:00–19:00">ორშ–შაბ: 9:00–20:00<br>კვირა: 9:00–19:00</span>
+                </div>
+            </div>
+
+            <!-- SHIPPING BANNER -->
+            <div
+                style="margin:1rem 0;background:rgba(200,135,58,0.12);border:1px solid rgba(200,135,58,0.3);border-radius:10px;padding:0.9rem 1.1rem">
+                <div
+                    style="color:var(--amber);font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.5rem">
+                    <span data-ka="🚚 მიწოდება" data-en="🚚 Delivery">🚚 მიწოდება</span>
+                </div>
+                <div style="color:rgba(253,250,246,0.85);font-size:0.87rem;line-height:1.7">
+                    <div
+                        style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(253,250,246,0.1);padding-bottom:0.35rem;margin-bottom:0.35rem">
+                        <span data-ka="თბილისში" data-en="Within Tbilisi">თბილისში</span>
+                        <strong style="color:var(--amber-light)">6 ₾</strong>
+                    </div>
+                    <div
+                        style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(253,250,246,0.1);padding-bottom:0.35rem;margin-bottom:0.35rem">
+                        <span data-ka="რეგიონში" data-en="Other regions">რეგიონში</span>
+                        <strong style="color:var(--amber-light)">8 ₾</strong>
+                    </div>
+                    <div style="display:flex;justify-content:space-between">
+                        <span data-ka="სოფელში" data-en="Villages">სოფელში</span>
+                        <strong style="color:var(--amber-light)">13 ₾</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="map-social">
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/p/%E1%83%AC%E1%83%98%E1%83%92%E1%83%9C%E1%83%98%E1%83%A1-%E1%83%A1%E1%83%90%E1%83%AE%E1%83%9A%E1%83%98-%E1%83%95%E1%83%90%E1%83%A0%E1%83%99%E1%83%94%E1%83%97%E1%83%98%E1%83%9A%E1%83%98-61583258007589/"
+                    target="_blank" aria-label="Facebook">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                    </svg>
+                </a>
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/book_store_varketili" target="_blank" aria-label="Instagram">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                    </svg>
+                </a>
+                <!-- TikTok -->
+                <a href="https://tiktok.com/@book_store_varketili" target="_blank" aria-label="TikTok">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z" />
+                    </svg>
+                </a>
+                <!-- WhatsApp -->
+                <a href="https://wa.me/" target="_blank" aria-label="WhatsApp">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z" />
+                    </svg>
+                </a>
+                <a href="https://maps.app.goo.gl/vPxYSaTygY4nLREj9" target="_blank" class="btn-primary"
+                    style="margin-left:0.25rem;padding:0.6rem 3rem;font-size:0.83rem;border-radius:10px;white-space:nowrap" data-ka="მარშრუტი →"
+                    data-en="Directions →">მარშრუტი →</a>
+            </div>
+        </div>
+        <div class="map-embed">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14555.278724164655!2d44.8597365!3d41.6917658!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40440df8000539dd%3A0xbe5b0f8a5d11c389!2z4YOs4YOY4YOS4YOc4YOY4YOhIOGDoeGDkOGDruGDmuGDmCDigJzhg5Xhg5Dhg6Dhg5nhg5Thg5fhg5jhg5rhg5jigJ0!5e1!3m2!1sen!2sge!4v1780402924667!5m2!1sen!2sge"
+                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-top">
+            <div>
+                <span class="footer-logo" data-ka="წიგნის სახლი 'ვარკეთილი'" data-en="BookHouse 'Varketili'">წიგნის სახლი 'ვარკეთილი'</span>
+                <p class="footer-tagline" data-ka="თქვენი წიგნის მაღაზია — სადაც ყოველი წიგნი ახალ თაროს პოულობს."
+                    data-en="Your bookstore — where every book finds a new shelf.">თქვენი წიგნის მაღაზია — სადაც ყოველი წიგნი ახალ თაროს პოულობს.</p>
+                <div class="footer-social">
+                    <a href="#" target="_blank" aria-label="Facebook">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                        </svg>
+                    </a>
+                    <a href="#" target="_blank" aria-label="Instagram">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                        </svg>
+                    </a>
+                    <a href="#" target="_blank" aria-label="TikTok">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div style="font-size:0.82rem;line-height:2">
+                <p><a href="https://docs.google.com/spreadsheets/d/1nZuSP0g82uJAHVi-qTM26M242Oz8Xe001jtAQ7aXszU/edit?gid=0"
+                        target="_blank" style="color:rgba(253,250,246,0.5);text-decoration:none;transition:color 0.18s"
+                        onmouseover="this.style.color='#E8B068'" onmouseout="this.style.color='rgba(253,250,246,0.5)'"
+                        data-ka="📋 იხილეთ სია Google Sheets-ში" data-en="📋 View list on Google Sheets">📋 იხილეთ სია
+                        Google Sheets-ში</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span data-ka="© 2026 წიგნის სახლი 'ვარკეთილი'" data-en="© 2026 BookHouse 'Varketili'">© 2026 წიგნის სახლი 'ვარკეთილი'</span>
+            <span class="vakho-credit">შექმნა VakhoDev-მა
+                <span class="vakho-tooltip">📞 551034747</span>
+            </span>
+        </div>
+    </footer>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal">
+            <div class="modal-cover" id="modal-cover">
+                <div id="modal-icon" style="font-size:2rem;margin-bottom:0.75rem;opacity:0.55"></div>
+                <div class="cover-title" id="modal-cover-title" style="font-size:1.05rem"></div>
+                <div class="cover-author" id="modal-cover-author" style="font-size:0.75rem;margin-top:0.3rem"></div>
+            </div>
+            <div class="modal-body">
+                <button class="modal-close" id="modal-close" aria-label="Close">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+                <h2 class="modal-title" id="modal-title"></h2>
+                <p class="modal-author" id="modal-author"></p>
+                <div class="modal-price" id="modal-price"></div>
+                <div class="modal-row">
+                    <div class="modal-field"><label data-ka="ჟანრი" data-en="Genre">ჟანრი</label><span
+                            id="modal-genre">—</span></div>
+                    <div class="modal-field"><label data-ka="სტატუსი" data-en="Status">სტატუსი</label><span
+                            id="modal-status">—</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ─── CONFIG ──────────────────────────────────────────────────────────────────
+        const SHEET_ID = '1nZuSP0g82uJAHVi-qTM26M242Oz8Xe001jtAQ7aXszU';
+        const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=0`;
+        const PAGE_SIZE = 30;
+
+        // Store hours (24h)
+        // Mon–Sat: 9:00–20:00  |  Sun: 9:00–19:00
+        const HOURS = {
+            weekday: [9, 20],
+            sunday: [9, 19]
+        };
+
+        // ─── LANGUAGE ────────────────────────────────────────────────────────────────
+        let lang = 'ka';
+        function setLang(l) {
+            lang = l;
+            document.getElementById('lang-ka').className = l === 'ka' ? 'active' : '';
+            document.getElementById('lang-en').className = l === 'en' ? 'active' : '';
+            document.querySelectorAll('[data-ka]').forEach(el => {
+                const txt = el.getAttribute('data-' + l);
+                if (txt !== null) {
+                    if (el.tagName === 'INPUT') el.placeholder = txt;
+                    else el.innerHTML = txt;
+                }
+            });
+            document.querySelectorAll('option[data-ka]').forEach(opt => {
+                opt.textContent = opt.getAttribute('data-' + l) || opt.textContent;
+            });
+            document.querySelector('.search-input').placeholder = l === 'ka' ? 'სათაური ან ავტორი…' : 'Title or author…';
+            updateStatusBadge();
+            updateShowMoreBtn();
+        }
+
+        // ─── STORE STATUS ─────────────────────────────────────────────────────────────
+        function updateStatusBadge() {
+            const now = new Date();
+            const day = now.getDay(); // 0=Sun
+            const hour = now.getHours() + now.getMinutes() / 60;
+            const [open, close] = day === 0 ? HOURS.sunday : HOURS.weekday;
+            const isOpen = hour >= open && hour < close;
+
+            const badge = document.getElementById('status-badge');
+            const dot = document.getElementById('status-dot');
+            const text = document.getElementById('status-text');
+
+            if (isOpen) {
+                badge.className = 'hero-badge badge-open';
+                dot.className = 'dot dot-open';
+                const closeStr = `${close}:00`;
+                text.textContent = lang === 'ka'
+                    ? `ღიაა · იხურება ${closeStr}`
+                    : `Open now · Closes at ${closeStr}`;
+            } else {
+                badge.className = 'hero-badge badge-closed';
+                dot.className = 'dot dot-closed';
+                // next open
+                let nextOpen, nextDay;
+                if (hour >= close) {
+                    nextDay = day === 6 ? 0 : day + 1;
+                    nextOpen = nextDay === 0 ? HOURS.sunday[0] : HOURS.weekday[0];
+                } else {
+                    nextDay = day;
+                    nextOpen = day === 0 ? HOURS.sunday[0] : HOURS.weekday[0];
+                }
+                const days_ka = ['კვირა', 'ორშაბათი', 'სამშაბათი', 'ოთხშაბათი', 'ხუთშაბათი', 'პარასკევი', 'შაბათი'];
+                const days_en = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                const dayStr = lang === 'ka' ? days_ka[nextDay] : days_en[nextDay];
+                text.textContent = lang === 'ka'
+                    ? `დახურულია · გახსნა ${dayStr} ${nextOpen}:00`
+                    : `Closed · Opens ${dayStr} at ${nextOpen}:00`;
+            }
+        }
+        updateStatusBadge();
+        setInterval(updateStatusBadge, 60000);
+
+        // ─── COLORS / ICONS ──────────────────────────────────────────────────────────
+        const COLORS = [
+            '#1B4332', '#6D4C41', '#1A237E', '#4A148C', '#B71C1C', '#004D40',
+            '#BF360C', '#1B5E20', '#880E4F', '#0D47A1', '#33691E', '#E65100',
+            '#263238', '#4E342E', '#311B92', '#37474F', '#3E2723', '#1A237E'
+        ];
+        const GENRE_ICONS = {
+            romance: '💕', thriller: '🔪', mystery: '🔍', fantasy: '🐉', 'sci-fi': '🚀',
+            science: '🔬', history: '🏛️', biography: '👤', horror: '👻', poetry: '✒️',
+            philosophy: '🤔', business: '💼', psychology: '🧠', 'self-help': '💡',
+            children: '🌈', fiction: '📚', novel: '📖', default: '📕'
+        };
+        function getColor(str) { let h = 0; for (let c of (str || '')) h = (h * 31 + c.charCodeAt(0)) & 0xFFFFFFFF; return COLORS[Math.abs(h) % COLORS.length] }
+        function getIcon(genre) { if (!genre) return '📕'; const g = genre.toLowerCase(); for (const [k, v] of Object.entries(GENRE_ICONS)) if (g.includes(k)) return v; return '📕' }
+
+        // ─── DATA ─────────────────────────────────────────────────────────────────────
+        let allBooks = [], filtered = [], displayed = 0, shuffleOrder = [];
+
+        function shuffle(arr) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[a[i], a[j]] = [a[j], a[i]] }
+            return a;
+        }
+
+        async function loadBooks() {
+            try {
+                const res = await fetch(SHEET_URL);
+                const text = await res.text();
+                const json = JSON.parse(text.replace(/^[^(]+\(/, '').replace(/\);?\s*$/, ''));
+                const rows = json.table.rows;
+                const books = [];
+                let currentGenre = '';
+                for (const row of rows) {
+                    const cells = row.c || [];
+                    const a = cells[0]?.v ?? '';
+                    const b = cells[1]?.v ?? '';
+                    const c = cells[2]?.v ?? '';
+                    const d = cells[3]?.v ?? '';
+                    if (!a) continue;
+                    const aStr = String(a).trim();
+                    const bStr = String(b).trim();
+                    const cStr = String(c).trim();
+                    const dStr = String(d).trim();
+                    // Genre header row: has text in col A, nothing in B and C
+                    if (aStr && !bStr && !cStr) {
+                        currentGenre = aStr;
+                        continue;
+                    }
+                    if (!aStr) continue;
+                    const price = parseFloat(String(c).replace(/[^0-9.]/g, ''));
+                    const note = dStr.toLowerCase();
+                    const isOutOfStock = note.includes('მარაგში') || note.includes('unavail') || note.includes('sold');
+                    const isNew = note.includes('დამატებული') || note.includes('new') || note.includes('ახალი');
+                    books.push({
+                        title: aStr,
+                        author: bStr || '—',
+                        price: isNaN(price) ? null : price,
+                        genre: currentGenre,
+                        outOfStock: isOutOfStock,
+                        isNew: isNew
+                    });
+                }
+                return books;
+            } catch (e) {
+                console.error('Sheet load error:', e);
+                return null;
+            }
+        }
+
+        // ─── RENDER ───────────────────────────────────────────────────────────────────
+        function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') }
+        function fmtPrice(p) { return p == null ? '—' : '₾' + p.toFixed(2) }
+
+        function createCard(book) {
+            const bg = getColor(book.title + book.author);
+            const icon = getIcon(book.genre);
+            const card = document.createElement('div');
+            card.className = 'book-card';
+            let statusHtml = '';
+            if (book.outOfStock) {
+                statusHtml = `<span class="book-status status-sold">${lang === 'ka' ? 'არ არის' : 'Out of stock'}</span>`;
+            } else if (book.isNew) {
+                statusHtml = `<span class="book-status status-new">${lang === 'ka' ? 'ახალი' : 'New'}</span>`;
+            } else {
+                statusHtml = `<span class="book-status status-available">${lang === 'ka' ? 'მარაგშია' : 'In stock'}</span>`;
+            }
+            card.innerHTML = `
+    <div class="book-cover" style="background:${bg}">
+      <div class="book-cover-inner">
+        <div class="cover-icon">${icon}</div>
+        <div class="cover-title">${esc(book.title)}</div>
+        ${book.author !== '—' ? `<div class="cover-author">${esc(book.author)}</div>` : ''}
+      </div>
+    </div>
+    <div class="book-info">
+      <div class="book-title">${esc(book.title)}</div>
+      ${book.author !== '—' ? `<div class="book-author">${esc(book.author)}</div>` : ''}
+      <div class="book-meta">
+        <span class="book-price">${fmtPrice(book.price)}</span>
+        <div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center">
+          ${book.genre ? `<span class="book-genre">${esc(book.genre)}</span>` : ''}
+          ${statusHtml}
+        </div>
+      </div>
+    </div>`;
+            card.addEventListener('click', () => openModal(book, bg, icon));
+            return card;
+        }
+
+        function renderPage(reset) {
+            if (reset) {
+                displayed = 0;
+                document.getElementById('books-grid').innerHTML = '';
+            }
+            const grid = document.getElementById('books-grid');
+            const batch = filtered.slice(displayed, displayed + PAGE_SIZE);
+            const frag = document.createDocumentFragment();
+            batch.forEach(b => frag.appendChild(createCard(b)));
+            grid.appendChild(frag);
+            displayed += batch.length;
+            updateShowMoreBtn();
+        }
+
+        function updateShowMoreBtn() {
+            const btn = document.getElementById('show-more-btn');
+            if (displayed < filtered.length) {
+                btn.hidden = false;
+                const rem = filtered.length - displayed;
+                btn.querySelector('span').textContent = lang === 'ka'
+                    ? `კიდევ ${rem} წიგნის ნახვა`
+                    : `Show ${rem} more`;
+            } else {
+                btn.hidden = true;
+            }
+        }
+
+        document.getElementById('show-more-btn').addEventListener('click', () => renderPage(false));
+
+        // ─── FILTER / SORT ────────────────────────────────────────────────────────────
+        function applyFilters() {
+            const q = document.getElementById('search-input').value.toLowerCase();
+            const g = document.getElementById('genre-filter').value;
+            const s = document.getElementById('sort-select').value;
+
+            filtered = allBooks.filter(b => {
+                const mQ = !q || b.title.toLowerCase().includes(q) || b.author.toLowerCase().includes(q);
+                const mG = !g || b.genre === g;
+                return mQ && mG;
+            });
+
+            if (s === 'shuffle') {
+                filtered = shuffle(filtered);
+            } else if (s === 'price-asc') {
+                filtered.sort((a, b) => (a.price ?? 999) - (b.price ?? 999));
+            } else if (s === 'price-desc') {
+                filtered.sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
+            } else if (s === 'title-asc') {
+                filtered.sort((a, b) => a.title.localeCompare(b.title));
+            }
+
+            const count = document.getElementById('results-count');
+            count.textContent = lang === 'ka'
+                ? `${filtered.length} წიგნი`
+                : `${filtered.length} books`;
+
+            if (!filtered.length) {
+                document.getElementById('books-grid').innerHTML =
+                    `<div class="empty-state">${lang === 'ka' ? 'წიგნი ვერ მოიძებნა.' : 'No books found.'}</div>`;
+                document.getElementById('show-more-btn').hidden = true;
+                return;
+            }
+            renderPage(true);
+        }
+
+        // ─── CATEGORIES ───────────────────────────────────────────────────────────────
+        function buildCategories() {
+            const counts = {};
+            allBooks.forEach(b => { if (b.genre) counts[b.genre] = (counts[b.genre] || 0) + 1; });
+            const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+            const grid = document.getElementById('categories-grid');
+            grid.innerHTML = '';
+            sorted.slice(0, 12).forEach(([genre, count]) => {
+                const card = document.createElement('a');
+                card.href = '#catalog';
+                card.className = 'category-card';
+                card.innerHTML = `<div class="category-icon">${getIcon(genre)}</div><div class="category-name">${esc(genre)}</div><div class="category-count">${count}</div>`;
+                card.addEventListener('click', () => {
+                    document.getElementById('genre-filter').value = genre;
+                    setTimeout(applyFilters, 50);
+                });
+                grid.appendChild(card);
+            });
+        }
+
+        function buildGenreFilter() {
+            const genres = [...new Set(allBooks.map(b => b.genre).filter(Boolean))].sort();
+            const sel = document.getElementById('genre-filter');
+            genres.forEach(g => {
+                const opt = document.createElement('option');
+                opt.value = g; opt.textContent = g;
+                sel.appendChild(opt);
+            });
+        }
+
+        // ─── SHELF ────────────────────────────────────────────────────────────────────
+        function buildShelf() {
+            const sample = shuffle(allBooks).slice(0, 18);
+            const heights = [110, 95, 122, 100, 116, 90];
+            const widths = [32, 27, 36, 29, 34, 25];
+            ['shelf-row-1', 'shelf-row-2', 'shelf-row-3'].forEach((id, ri) => {
+                const row = document.getElementById(id);
+                for (let i = 0; i < 6; i++) {
+                    const b = sample[(ri * 6 + i) % sample.length];
+                    const sp = document.createElement('div');
+                    sp.className = 'book-spine';
+                    sp.style.cssText = `background:${getColor(b.title + b.author)};width:${widths[i]}px;height:${heights[i]}px`;
+                    sp.innerHTML = `<span>${esc(b.title)}</span>`;
+                    sp.addEventListener('click', () => openModal(b, getColor(b.title + b.author), getIcon(b.genre)));
+                    row.appendChild(sp);
+                }
+            });
+        }
+
+        // ─── STATS ────────────────────────────────────────────────────────────────────
+        function updateStats() {
+            document.getElementById('stat-books').textContent = allBooks.length;
+            document.getElementById('stat-genres').textContent = new Set(allBooks.map(b => b.genre).filter(Boolean)).size;
+        }
+
+        // ─── MODAL ────────────────────────────────────────────────────────────────────
+        function openModal(book, bg, icon) {
+            document.getElementById('modal-cover').style.background = bg;
+            document.getElementById('modal-icon').textContent = icon;
+            document.getElementById('modal-cover-title').textContent = book.title;
+            document.getElementById('modal-cover-author').textContent = book.author !== '—' ? book.author : '';
+            document.getElementById('modal-title').textContent = book.title;
+            document.getElementById('modal-author').textContent = book.author !== '—' ? book.author : '';
+            document.getElementById('modal-price').textContent = fmtPrice(book.price);
+            document.getElementById('modal-genre').textContent = book.genre || '—';
+            let statusTxt = book.outOfStock
+                ? (lang === 'ka' ? 'არ არის მარაგში' : 'Out of stock')
+                : book.isNew
+                    ? (lang === 'ka' ? 'ახალი' : 'New arrival')
+                    : (lang === 'ka' ? 'მარაგშია' : 'In stock');
+            document.getElementById('modal-status').textContent = statusTxt;
+            document.getElementById('modal-overlay').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() {
+            document.getElementById('modal-overlay').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        document.getElementById('modal-close').addEventListener('click', closeModal);
+        document.getElementById('modal-overlay').addEventListener('click', e => { if (e.target === document.getElementById('modal-overlay')) closeModal() });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal() });
+
+        // ─── SCROLL FADE ──────────────────────────────────────────────────────────────
+        const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') }), { threshold: 0.08 });
+        document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+        // ─── INIT ─────────────────────────────────────────────────────────────────────
+        async function init() {
+            const raw = await loadBooks();
+            if (!raw || !raw.length) {
+                document.getElementById('books-grid').innerHTML = `<div class="empty-state">
+      ${lang === 'ka' ? 'კატალოგი ვერ ჩაიტვირთა.' : 'Catalog could not be loaded.'}
+      <br><a href="https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit" target="_blank" style="color:var(--amber)">Google Sheets →</a>
+    </div>`;
+                document.getElementById('categories-grid').innerHTML = '';
+                return;
+            }
+            allBooks = raw;
+            filtered = shuffle([...allBooks]);
+            buildShelf();
+            buildCategories();
+            buildGenreFilter();
+            updateStats();
+            renderPage(true);
+
+            document.getElementById('search-input').addEventListener('input', applyFilters);
+            document.getElementById('genre-filter').addEventListener('change', applyFilters);
+            document.getElementById('sort-select').addEventListener('change', applyFilters);
+        }
+
+        init();
+    </script>
+</body>
+
+</html>
