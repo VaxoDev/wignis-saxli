@@ -1094,8 +1094,92 @@
             transform: translateY(0)
         }
 
+        .nav-hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 6px;
+            transition: background 0.18s
+        }
+
+        .nav-hamburger:hover {
+            background: var(--amber-pale)
+        }
+
+        .nav-hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--ink);
+            border-radius: 2px;
+            transition: all 0.22s
+        }
+
+        .nav-hamburger.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg)
+        }
+
+        .nav-hamburger.open span:nth-child(2) {
+            opacity: 0
+        }
+
+        .nav-hamburger.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg)
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 64px;
+            left: 0;
+            right: 0;
+            z-index: 99;
+            background: rgba(247, 243, 236, 0.98);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            flex-direction: column;
+            padding: 0.5rem 1rem 1rem
+        }
+
+        .mobile-nav.open {
+            display: flex
+        }
+
+        .mobile-nav a {
+            text-decoration: none;
+            color: var(--ink-soft);
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 0.75rem 0.5rem;
+            border-bottom: 1px solid var(--border);
+            transition: color 0.18s
+        }
+
+        .mobile-nav a:last-child {
+            border-bottom: none
+        }
+
+        .mobile-nav a:hover {
+            color: var(--amber)
+        }
+
+        @media(max-width:860px) {
+            .nav-hamburger {
+                display: flex
+            }
+        }
+
         /* RESPONSIVE */
         @media(max-width:860px) {
+            .nav-center {
+                display: none
+            }
+
             .hero {
                 grid-template-columns: 1fr
             }
@@ -1212,8 +1296,16 @@
                 <button onclick="setLang('ka')" id="lang-ka" class="active">ქარ</button>
                 <button onclick="setLang('en')" id="lang-en">ENG</button>
             </div>
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu" onclick="toggleMobileNav()">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </nav>
+    <div class="mobile-nav" id="mobile-nav">
+        <a href="#" onclick="closeMobileNav()" data-ka="მთავარი" data-en="Home">მთავარი</a>
+        <a href="#catalog" onclick="closeMobileNav()" data-ka="კატალოგი" data-en="Catalog">კატალოგი</a>
+        <a href="#contact" onclick="closeMobileNav()" data-ka="კონტაქტი" data-en="Contact">კონტაქტი</a>
+    </div>
 
     <!-- HERO -->
     <section class="hero" id="home">
@@ -1613,9 +1705,14 @@
 
         async function loadBooks() {
             try {
-                const res = await fetch(SHEET_URL);
+                const res = await fetch(SHEET_URL, { cache: 'no-store' });
                 const text = await res.text();
-                const json = JSON.parse(text.replace(/^[^(]+\(/, '').replace(/\);?\s*$/, ''));
+                // Google gviz wraps the payload in /*O_o*/\ngoogle.visualization.Query.setResponse({...});
+                // Strip everything up to the first '{' and the trailing '});'
+                const start = text.indexOf('{');
+                const end = text.lastIndexOf('}');
+                if (start === -1 || end === -1) throw new Error('Unexpected gviz response format');
+                const json = JSON.parse(text.slice(start, end + 1));
                 const rows = json.table.rows;
                 const books = [];
                 let currentGenre = '';
@@ -1869,6 +1966,18 @@
             document.getElementById('search-input').addEventListener('input', applyFilters);
             document.getElementById('genre-filter').addEventListener('change', applyFilters);
             document.getElementById('sort-select').addEventListener('change', applyFilters);
+        }
+
+        // ─── MOBILE NAV ───────────────────────────────────────────────────────────────
+        function toggleMobileNav() {
+            const nav = document.getElementById('mobile-nav');
+            const btn = document.getElementById('nav-hamburger');
+            nav.classList.toggle('open');
+            btn.classList.toggle('open');
+        }
+        function closeMobileNav() {
+            document.getElementById('mobile-nav').classList.remove('open');
+            document.getElementById('nav-hamburger').classList.remove('open');
         }
 
         init();
