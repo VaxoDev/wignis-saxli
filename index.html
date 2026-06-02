@@ -1606,7 +1606,7 @@
     <script>
         // ─── CONFIG ──────────────────────────────────────────────────────────────────
         const SHEET_ID = '1nZuSP0g82uJAHVi-qTM26M242Oz8Xe001jtAQ7aXszU';
-        const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=0`;
+        const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0`;
         const PAGE_SIZE = 30;
 
         // Store hours (24h)
@@ -1706,34 +1706,44 @@
         async function loadBooks() {
             try {
                 const res = await fetch(SHEET_URL, { cache: 'no-store' });
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
                 const text = await res.text();
-                // Google gviz wraps the payload in /*O_o*/\ngoogle.visualization.Query.setResponse({...});
-                // Strip everything up to the first '{' and the trailing '});'
-                const start = text.indexOf('{');
-                const end = text.lastIndexOf('}');
-                if (start === -1 || end === -1) throw new Error('Unexpected gviz response format');
-                const json = JSON.parse(text.slice(start, end + 1));
-                const rows = json.table.rows;
+
+                // Parse CSV — handles quoted fields with commas inside
+                function parseCSV(str) {
+                    const rows = [];
+                    let row = [], field = '', inQuote = false;
+                    for (let i = 0; i < str.length; i++) {
+                        const ch = str[i], next = str[i + 1];
+                        if (inQuote) {
+                            if (ch === '"' && next === '"') { field += '"'; i++; }
+                            else if (ch === '"') inQuote = false;
+                            else field += ch;
+                        } else {
+                            if (ch === '"') inQuote = true;
+                            else if (ch === ',') { row.push(field); field = ''; }
+                            else if (ch === '\n' || (ch === '\r' && next === '\n')) {
+                                row.push(field); rows.push(row); row = []; field = '';
+                                if (ch === '\r') i++;
+                            } else field += ch;
+                        }
+                    }
+                    if (field || row.length) { row.push(field); rows.push(row); }
+                    return rows;
+                }
+
+                const rows = parseCSV(text);
                 const books = [];
                 let currentGenre = '';
-                for (const row of rows) {
-                    const cells = row.c || [];
-                    const a = cells[0]?.v ?? '';
-                    const b = cells[1]?.v ?? '';
-                    const c = cells[2]?.v ?? '';
-                    const d = cells[3]?.v ?? '';
-                    if (!a) continue;
-                    const aStr = String(a).trim();
-                    const bStr = String(b).trim();
-                    const cStr = String(c).trim();
-                    const dStr = String(d).trim();
-                    // Genre header row: has text in col A, nothing in B and C
-                    if (aStr && !bStr && !cStr) {
-                        currentGenre = aStr;
-                        continue;
-                    }
+                for (const cells of rows) {
+                    const aStr = (cells[0] || '').trim();
+                    const bStr = (cells[1] || '').trim();
+                    const cStr = (cells[2] || '').trim();
+                    const dStr = (cells[3] || '').trim();
                     if (!aStr) continue;
-                    const price = parseFloat(String(c).replace(/[^0-9.]/g, ''));
+                    // Genre header row: text in col A, nothing in B and C
+                    if (aStr && !bStr && !cStr) { currentGenre = aStr; continue; }
+                    const price = parseFloat(cStr.replace(/[^0-9.]/g, ''));
                     const note = dStr.toLowerCase();
                     const isOutOfStock = note.includes('მარაგში') || note.includes('unavail') || note.includes('sold');
                     const isNew = note.includes('დამატებული') || note.includes('new') || note.includes('ახალი');
